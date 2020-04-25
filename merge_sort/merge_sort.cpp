@@ -16,14 +16,14 @@ void merge_sort(double *array, int16_t n) {
 	int16_t middle = n / 2;
 	
 	double *left = array;
-	double *right_ight = array + middle;
+	double *right = array + middle;
 	
 	int16_t left_n = middle;
-	int16_t	right_ight_n = n - left_n;
+	int16_t	right_n = n - left_n;
 	
 	// recursion
 	merge_sort(left, left_n);
-	merge_sort(right_ight, right_ight_n);
+	merge_sort(right, right_n);
 	
 	// merge
 	double *buffer = new double[n];
@@ -32,13 +32,13 @@ void merge_sort(double *array, int16_t n) {
 	int16_t right_i = 0;
 	int16_t buffer_i = 0;
 	
-	while(left_i < left_n and right_i < right_ight_n) {
-		if (left[left_i] <= right_ight[right_i]) {
+	while(left_i < left_n and right_i < right_n) {
+		if (left[left_i] <= right[right_i]) {
 			buffer[buffer_i] = left[left_i];
 			left_i++;
 			buffer_i++;
 		} else {
-			buffer[buffer_i] = right_ight[right_i];
+			buffer[buffer_i] = right[right_i];
 			right_i++;
 			buffer_i++;
 		}
@@ -50,8 +50,8 @@ void merge_sort(double *array, int16_t n) {
 		buffer_i++;
 	}
 	
-	while(right_i < right_ight_n) {
-		buffer[buffer_i] = right_ight[right_i];
+	while(right_i < right_n) {
+		buffer[buffer_i] = right[right_i];
 		right_i++;
 		buffer_i++;
 	}
@@ -63,7 +63,7 @@ void merge_sort(double *array, int16_t n) {
 	delete [] buffer;
 }
 
-void pright_int_array(double *array, int16_t n) {
+void print_array(double *array, int16_t n) {
 	for (int i = 0; i < n; i++) 
 		std::cout << array[i] << ' ';
 	std::cout << '\n';
@@ -85,7 +85,7 @@ int main() {
 	
 	input_array(array, n);
 	merge_sort(array, n);
-	pright_int_array(array, n);
+	print_array(array, n);
 	
 	delete [] array;
 	
