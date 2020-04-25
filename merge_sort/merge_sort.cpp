@@ -1,73 +1,76 @@
 #include <iostream>
 
-const int MAX_ARRAY_SIZE = 100;
+const int MAX_ARRAY_SIZE = 1000000;
 
-void input_array(double *A, int16_t n) {
+void input_array(double *array, int16_t n) {
+	std::cout << "Loading random numbers" << '\n';
+	
 	for (int i = 0; i < n; i++) 
-		std::cin >> A[i];
+		array[i] = rand() % 1000;
 }
 
-void merge_sort(double *A, int16_t n) {
+void merge_sort(double *array, int16_t n) {
 	
 	if (n <= 1) return; // !!!
 	
 	int16_t middle = n / 2;
 	
-	double *left = A;
-	double *right = A + middle;
+	double *left = array;
+	double *right_ight = array + middle;
 	
 	int16_t left_n = middle;
-	int16_t	right_n = n - left_n;
+	int16_t	right_ight_n = n - left_n;
 	
 	// recursion
 	merge_sort(left, left_n);
-	merge_sort(right, right_n);
+	merge_sort(right_ight, right_ight_n);
 	
 	// merge
 	double *buffer = new double[n];
 	
-	int16_t li = 0;
-	int16_t ri = 0;
-	int16_t bi = 0;
+	int16_t left_i = 0;
+	int16_t right_i = 0;
+	int16_t buffer_i = 0;
 	
-	while(li < left_n and ri < right_n) {
-		if (left[li] <= right[ri]) {
-			buffer[bi] = left[li];
-			li++;
-			bi++;
+	while(left_i < left_n and right_i < right_ight_n) {
+		if (left[left_i] <= right_ight[right_i]) {
+			buffer[buffer_i] = left[left_i];
+			left_i++;
+			buffer_i++;
 		} else {
-			buffer[bi] = right[ri];
-			ri++;
-			bi++;
+			buffer[buffer_i] = right_ight[right_i];
+			right_i++;
+			buffer_i++;
 		}
 	}
 	
-	while(li < left_n) {
-		buffer[bi] = left[li];
-		li++;
-		bi++;
+	while(left_i < left_n) {
+		buffer[buffer_i] = left[left_i];
+		left_i++;
+		buffer_i++;
 	}
 	
-	while(ri < right_n) {
-		buffer[bi] = right[ri];
-		ri++;
-		bi++;
+	while(right_i < right_ight_n) {
+		buffer[buffer_i] = right_ight[right_i];
+		right_i++;
+		buffer_i++;
 	}
 	
 	for (int16_t i = 0; i < n; i++) {
-		A[i] = buffer[i];
+		array[i] = buffer[i];
 	}
 	
 	delete [] buffer;
 }
 
-void print_array(double *A, int16_t n) {
+void pright_int_array(double *array, int16_t n) {
 	for (int i = 0; i < n; i++) 
-		std::cout << A[i] << ' ';
+		std::cout << array[i] << ' ';
 	std::cout << '\n';
 }
 
 int main() {
+	srand(time(nullptr));
 	int16_t n;
 	
 	std::cout << "Enter size of array: ";
@@ -78,13 +81,13 @@ int main() {
 		return 1;
 	}
 	
-	double *A = new double [n];
+	double *array = new double [n];
 	
-	input_array(A, n);
-	merge_sort(A, n);
-	print_array(A, n);
+	input_array(array, n);
+	merge_sort(array, n);
+	pright_int_array(array, n);
 	
-	delete [] A;
+	delete [] array;
 	
 	return 0;
 }
